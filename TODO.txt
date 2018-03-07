@@ -1,2 +1,3 @@
 - Look at how I can make the app code more generic so we dont have to cut-n-paste so much!
 - finish off app launching code
+

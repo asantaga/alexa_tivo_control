@@ -17,6 +17,9 @@ var route = config.route || "tivo_control";
 // set apps order
 var apps_order = [strings.netflix, strings.amazon, strings.hbogo, strings.hulu, strings.xfinityondemand, strings.youtube, strings.epix, strings.vudu, strings.plex, strings.mlbtv, strings.wwe, strings.ameba, strings.toongoggles, strings.alt, strings.flixfling, strings.hsn, strings.ign, strings.tastemade, strings.tubi, strings.vevo, strings.yahoo, strings.yupptv, strings.vewd, strings.baeble, strings.iheartradio, strings.pandora];
 
+// UKTIVO Apps Order (ASANTAGA 5-MAR-2018)
+var apps_order_uktivo = [strings.virginstore, strings.virginUpgrades, strings.onThisMonthSports, strings.onThisMonthCinema, strings.netflix, strings.youtube, strings.hayu, strings.vevo, strings.nowclubland, strings.karaoke,strings.radioline, strings.bbcnews, strings.toongoggles, strings.alt, strings.flixfling, strings.hsn, strings.ign, strings.tastemade, strings.tubi, strings.vevo, strings.yahoo, strings.yupptv, strings.vewd, strings.baeble, strings.iheartradio, strings.pandora];
+
 // define variables
 var queuedCommands = [];
 var telnetSocket;
@@ -34,6 +37,7 @@ var tivoBoxRoom = "";
 var roomFound = false;
 var genres = strings["genres"];
 var hydraUI = false;
+var uktivo= false;
 
 // macro setup (if enabled)
 var macros = "";
@@ -1378,6 +1382,28 @@ app.intent('iHeartRadio',
         }
     });
 
+// UKTIVO Additions
+app.intent('bbcnews',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} b b c news" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.bbcnews)) {
+            response.say("Launching " + strings.bbcnews);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.bbcnews, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.bbcnews + strings.txt_notenabled);
+        }
+    });
+
+
+
 // functions -----------------------------------------------------------
 
 function sendNextCommand () {
@@ -1523,6 +1549,17 @@ function openAppsCommands(commands) {
         commands.push("MUTE");
         commands.push("SELECT");
     }
+    else if (uktivo)
+    {
+        commands.push("DOWN");
+        commands.push("DOWN");
+        commands.push("DOWN");
+        commands.push("DOWN");
+        commands.push("DOWN");
+        commands.push("RIGHT");
+        commands.push("DOWN");
+        commands.push("RIGHT");
+    }
     else {
         commands.push("DOWN");
         commands.push("DOWN");
@@ -1548,7 +1585,7 @@ function buildAppNavigation(appID, commands) {
             // skip adding the first command because the selection highlight
             // starts on the first enabled app after going to the Apps menu
             if (!skipFirst) {
-                if (hydraUI) {
+                if (hydraUI | uktivo) {
                     commands.push("RIGHT");
                 }
                 else {
@@ -1560,7 +1597,7 @@ function buildAppNavigation(appID, commands) {
             }
         }
     }
-    if (hydraUI) {
+    if (hydraUI | uktivo) {
         commands.push("SELECT");
     }
     else {
@@ -1690,6 +1727,11 @@ function updateCurrentTiVoConfig(tivoIndex) {
     currentTiVoPort = config.tivos[tivoIndex].port;
     tivoMini = config.tivos[tivoIndex].mini;
     hydraUI = config.tivos[tivoIndex].hydra;
+    uktivo = config.tivos[tivoIndex].uktivo;
+
+    // If UKTIVO then override apps_order
+    if (uktivo)
+       apps_order=apps_order_uktivo;
 
     // update apps status
     apps_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].ameba, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].ign, config.tivos[tivoIndex].tastemade, config.tivos[tivoIndex].tubi, config.tivos[tivoIndex].vevo, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv, config.tivos[tivoIndex].vewd, config.tivos[tivoIndex].baeble, config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora];

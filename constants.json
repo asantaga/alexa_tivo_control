@@ -29,6 +29,16 @@
   "iheartradio": "I Heart Radio",
   "pandora": "Pandora",
 
+  "virginstore": "Virgin Store",
+  "virginUpgrades":"Vigin TV Upgrades",
+  "onThisMonthSports":"onThisMonthSports",
+  "onThisMonthCinema":"onThisMonthCinema",
+  "hayu":"hayu",
+  "nowclubland":"nowclubland",
+  "karaoke":"karaoke",
+  "radioline":"radioline",
+  "bbcnews":"bbcnews",
+
   "txt_welcome": "Welcome to Tivo Control. ,",
   "txt_launch": "You can say things like Alexa, tell Tivo to pause, or Alexa, tell Tivo to launch Plex. ,",
   "txt_card": "I've added a card to your Alexa app with more help and detailed examples.",
@@ -61,6 +71,5 @@
   "txt_macronotfound2": " in your macros configuration file.",
   "txt_macrocard": "The following user-defined macros are available for the 'Alexa, tell TiVo to execute macro <macro name>' command:\n\n",
   "txt_macrocard2": "\n\nYou can create more user-defined macros in the macros.json file.",
-
   "alexaTestAppId": "amzn1.echo-sdk-ams.app.000000-d0ed-0000-ad00-000000d00ebe"
 }

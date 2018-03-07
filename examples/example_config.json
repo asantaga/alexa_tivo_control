@@ -2,6 +2,7 @@
   "alexaAppId": " ",
   "route": "tivo_control",
   "macros": false,
+  "language": "us",
 
   "tivos": [
     {
@@ -21,7 +22,7 @@
       "vudu": true,
       "epix": true,
       "hsn": true,
-      "vevo": true,
+      "vevo": false,
       "alt": true,
       "flixfling": true,
       "toongoggles": true,

@@ -44,6 +44,10 @@ if (config.macros) {
     console.log("User-defined macros enabled (" + totalMacros + " found).");
 }
 
+// language/region setup (us, uk, or ca) 
+var langCd = config.language || "us";
+setRegionalConfig();
+
 // set default TiVo (first one in config file)
 updateCurrentTiVoConfig(tivoIndex);
 
@@ -69,7 +73,7 @@ app.error = function(exception, request, response) {
 
 // command-grouping arrays ---------------------------------------------
 
-var IRCODE_COMMANDS = ["UP", "DOWN", "LEFT", "RIGHT", "SELECT", "TIVO", "LIVETV", "GUIDE", "INFO", "EXIT", "THUMBSUP", "THUMBSDOWN", "CHANNELUP", "CHANNELDOWN", "MUTE", "VOLUMEUP", "VOLUMEDOWN", "TVINPUT", "VIDEO_MODE_FIXED_480i", "VIDEO_MODE_FIXED_480p", "VIDEO_MODE_FIXED_720p", "VIDEO_MODE_FIXED_1080i", "VIDEO_MODE_HYBRID", "VIDEO_MODE_HYBRID_720p", "VIDEO_MODE_HYBRID_1080i", "VIDEO_MODE_NATIVE", "CC_ON", "CC_OFF", "OPTIONS", "ASPECT_CORRECTION_FULL", "ASPECT_CORRECTION_PANEL", "ASPECT_CORRECTION_ZOOM", "ASPECT_CORRECTION_WIDE_ZOOM", "PLAY", "FORWARD", "REVERSE", "PAUSE", "SLOW", "REPLAY", "ADVANCE", "RECORD", "NUM0", "NUM1", "NUM2", "NUM3", "NUM4", "NUM5", "NUM6", "NUM7", "NUM8", "NUM9", "ENTER", "CLEAR", "ACTION_A", "ACTION_B", "ACTION_C", "ACTION_D", "BACK", "WINDOW", "NETFLIX"];
+var IRCODE_COMMANDS = ["UP", "DOWN", "LEFT", "RIGHT", "SELECT", "TIVO", "LIVETV", "GUIDE", "INFO", "EXIT", "THUMBSUP", "THUMBSDOWN", "CHANNELUP", "CHANNELDOWN", "MUTE", "VOLUMEUP", "VOLUMEDOWN", "TVINPUT", "VIDEO_MODE_FIXED_480i", "VIDEO_MODE_FIXED_480p", "VIDEO_MODE_FIXED_720p", "VIDEO_MODE_FIXED_1080i", "VIDEO_MODE_HYBRID", "VIDEO_MODE_HYBRID_720p", "VIDEO_MODE_HYBRID_1080i", "VIDEO_MODE_NATIVE", "CC_ON", "CC_OFF", "OPTIONS", "ASPECT_CORRECTION_FULL", "ASPECT_CORRECTION_PANEL", "ASPECT_CORRECTION_ZOOM", "ASPECT_CORRECTION_WIDE_ZOOM", "PLAY", "FORWARD", "REVERSE", "PAUSE", "SLOW", "REPLAY", "ADVANCE", "RECORD", "NUM0", "NUM1", "NUM2", "NUM3", "NUM4", "NUM5", "NUM6", "NUM7", "NUM8", "NUM9", "ENTER", "CLEAR", "ACTION_A", "ACTION_B", "ACTION_C", "ACTION_D", "BACK", "WINDOW", "NETFLIX", "FIND_REMOTE"];
 
 var KEYBOARD_COMMANDS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "MINUS", "EQUALS", "LBRACKET", "RBRACKET", "BACKSLASH", "SEMICOLON", "QUOTE", "COMMA", "PERIOD", "SLASH", "BACKQUOTE", "SPACE", "KBDUP", "KBDDOWN", "KBDLEFT", "KBDRIGHT", "PAGEUP", "PAGEDOWN", "HOME", "END", "CAPS", "LSHIFT", "RSHIFT", "INSERT", "BACKSPACE", "DELETE", "KBDENTER", "STOP", "VIDEO_ON_DEMAND"];
 
@@ -120,7 +124,7 @@ app.intent('ListEnabledApps',
 
 app.intent('ListChannels',
     {
-        "slots":{"GENRE":"AMAZON.Genre"},
+        "slots":{"GENRE":`${slotGenre}`},
         "utterances":[ "{for|to} {my channels|my channel list|list my channels|list channels|channel list|list channel names} {for +GENRE+|by +GENRE+|}" ]
     },
     function(request,response) {
@@ -184,11 +188,22 @@ app.intent('ListMacros',
         }
     });
 
+app.intent('FindRemote',
+    {
+        "slots":{},
+        "utterances":[ "{to find|find} {my remote|remote}" ]
+    },
+    function(request,response) {
+        var commands = [];
+        commands.push("FIND_REMOTE");
+        sendCommands(commands);
+    });
+
 // BOX SELECTION
 
 app.intent('ChangeTiVoBox',
     {
-       "slots":{"TIVOBOX":"AMAZON.Room"},
+       "slots":{"TIVOBOX":`${slotRoom}`},
         "utterances":[ "{to|} {control|select|switch to|use} {-|TIVOBOX}" ]
     },
     function(request,response) {
@@ -340,7 +355,7 @@ app.intent('WishLists',
 
 app.intent('Search',
     {
-        "slots":{"TIVOSEARCHREQMOVIE":"AMAZON.Movie","TIVOSEARCHREQTVSERIES":"AMAZON.TVSeries"},
+        "slots":{"TIVOSEARCHREQMOVIE":`${slotMovie}`,"TIVOSEARCHREQTVSERIES":`${slotTVSeries}`},
         "utterances":[ "{go to|to|open|open up|display|launch|show|} {search|find} {for +TIVOSEARCHREQMOVIE+|+TIVOSEARCHREQMOVIE+|for +TIVOSEARCHREQTVSERIES+|+TIVOSEARCHREQTVSERIES+|}" ]
     },
     function(request,response) {
@@ -386,7 +401,7 @@ app.intent('Search',
 
 app.intent('Type',
     {
-        "slots":{"TIVOTYPEREQMOVIE":"AMAZON.Movie","TIVOTYPEREQTVSERIES":"AMAZON.TVSeries"},
+        "slots":{"TIVOTYPEREQMOVIE":`${slotMovie}`,"TIVOTYPEREQTVSERIES":`${slotTVSeries}`},
         "utterances":[ "{to|} type {+TIVOTYPEREQMOVIE+|+TIVOTYPEREQTVSERIES+}" ]
     },
     function(request,response) {
@@ -498,7 +513,7 @@ app.intent('WhatToWatch',
 
 app.intent('ChangeChannel',
     {
-        "slots":{"TIVOCHANNEL":"NUMBER","TIVOBOXRM":"AMAZON.Room"},
+        "slots":{"TIVOCHANNEL":"NUMBER","TIVOBOXRM":`${slotRoom}`},
         "utterances":[ "{change|go to} channel {to|} {1-100|TIVOCHANNEL} {in +TIVOBOXRM+|on +TIVOBOXRM+|}" ]
     },
     function(request,response) {
@@ -524,7 +539,7 @@ app.intent('ChangeChannel',
 
 app.intent('PutOn',
     {
-        "slots":{"CHANNELNAME":"AMAZON.TelevisionChannel","TIVOBOXRM":"AMAZON.Room"},
+        "slots":{"CHANNELNAME":`${slotTVChannel}`,"TIVOBOXRM":`${slotRoom}`},
         "utterances":[ "put {on|} {-|CHANNELNAME} {in +TIVOBOXRM+|on +TIVOBOXRM+|}" ]
     },
     function(request,response) {
@@ -569,7 +584,7 @@ app.intent('PutOn',
 	
 app.intent('ForceChannel',
     {
-        "slots":{"TIVOCHANNEL":"NUMBER","TIVOBOXRM":"AMAZON.Room"},
+        "slots":{"TIVOCHANNEL":"NUMBER","TIVOBOXRM":`${slotRoom}`},
         "utterances":[ "force channel {to|} {1-100|TIVOCHANNEL} {in +TIVOBOXRM+|on +TIVOBOXRM+|}" ]
     },
     function(request,response) {
@@ -902,7 +917,7 @@ app.intent('Xfinity',
         }
     });
 
-app.intent('Amazon',
+app.intent('AmazonVideo',
     {
         "slots":{},
         "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} amazon {video|}" ]
@@ -1783,6 +1798,29 @@ function findMacro(macroName) {
     console.log("Not found!");
     return -1;
 }
+
+// setup for different languages/regions
+function setRegionalConfig() {
+
+    // use custom slot types for non-US languages that don't support the AMAZON ones
+    switch (langCd) {
+        case "uk":
+        case "ca":
+            slotGenre     = "TIVOGENRE_SLOT";
+            slotRoom      = "TIVOROOM_SLOT";
+            slotMovie     = "TIVOMOVIE_SLOT";
+            slotTVSeries  = "TIVOTVSERIES_SLOT";
+            slotTVChannel = "TIVOTVCHANNEL_SLOT";
+            break;
+        case "us":
+        default:
+            slotGenre     = "AMAZON.Genre"
+            slotRoom      = "AMAZON.Room";
+            slotMovie     = "AMAZON.Movie";
+            slotTVSeries  = "AMAZON.TVSeries";
+            slotTVChannel = "AMAZON.TelevisionChannel";
+    }
+} 
 
 
 module.exports = app;

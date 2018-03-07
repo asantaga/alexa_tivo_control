@@ -18,7 +18,7 @@ var route = config.route || "tivo_control";
 var apps_order = [strings.netflix, strings.amazon, strings.hbogo, strings.hulu, strings.xfinityondemand, strings.youtube, strings.epix, strings.vudu, strings.plex, strings.mlbtv, strings.wwe, strings.ameba, strings.toongoggles, strings.alt, strings.flixfling, strings.hsn, strings.ign, strings.tastemade, strings.tubi, strings.vevo, strings.yahoo, strings.yupptv, strings.vewd, strings.baeble, strings.iheartradio, strings.pandora];
 
 // UKTIVO Apps Order (ASANTAGA 5-MAR-2018)
-var apps_order_uktivo = [strings.virginstore, strings.virginUpgrades, strings.onThisMonthSports, strings.onThisMonthCinema, strings.netflix, strings.youtube, strings.hayu, strings.vevo, strings.nowclubland, strings.karaoke,strings.radioline, strings.bbcnews, strings.toongoggles, strings.alt, strings.flixfling, strings.hsn, strings.ign, strings.tastemade, strings.tubi, strings.vevo, strings.yahoo, strings.yupptv, strings.vewd, strings.baeble, strings.iheartradio, strings.pandora];
+var apps_order_uktivo = [strings.virginstore, strings.virginUpgrades, strings.onThisMonthSports, strings.onThisMonthCinema, strings.netflix, strings.youtube, strings.hayu, strings.vevo, strings.nowclubland, strings.karaoke,strings.radioline, strings.bbcnews, strings.france24, strings.aljazera, strings.weathergripe, strings.bbcsport,strings.eurosport,strings.curzon,strings.worldbox,strings.mynickjr,strings.playgames,strings.slots,strings.stringemin,strings.puzzlerfamily,strings.millionare,strings.texasholdem,strings.charlieandlola,strings.scoobygame,strings.quizgame,strings.pancakepanic,strings.morefromcn,strings.getfittoday,strings.bodyinbalance ];
 
 // define variables
 var queuedCommands = [];
@@ -32,7 +32,7 @@ var cardList = "";
 var tivoIndex = 0;
 var totalTiVos = Object.keys(config.tivos).length;
 var lastTivoBox = tivoIndex;
-var channelName = ""; 
+var channelName = "";
 var tivoBoxRoom = "";
 var roomFound = false;
 var genres = strings["genres"];
@@ -1001,7 +1001,611 @@ app.intent('YouTube',
             response.say(strings.youtube + strings.txt_notenabled);
         }
     });
-	
+
+
+app.intent('hayu',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} hayu" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.hayu)) {
+            response.say("Launching " + strings.hayu);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.hayu, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.hayu + strings.txt_notenabled);
+        }
+    });
+
+app.intent('vevo',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} vevo" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.vevo)) {
+            response.say("Launching " + strings.vevo);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.vevo, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.vevo + strings.txt_notenabled);
+        }
+    });
+
+app.intent('nowclubland',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} nowclubland" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.nowclubland)) {
+            response.say("Launching " + strings.nowclubland);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.nowclubland, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.nowclubland + strings.txt_notenabled);
+        }
+    });
+
+
+app.intent('karaoke',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} karaoke" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.karaoke)) {
+            response.say("Launching " + strings.karaoke);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.karaoke, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.karaoke + strings.txt_notenabled);
+        }
+    });
+
+app.intent('radioline',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} radioline" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.radioline)) {
+            response.say("Launching " + strings.radioline);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.radioline, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.radioline + strings.txt_notenabled);
+        }
+    });
+
+app.intent('bbcnews',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} bbcnews" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.bbcnews)) {
+            response.say("Launching " + strings.bbcnews);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.bbcnews, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.bbcnews + strings.txt_notenabled);
+        }
+    });
+
+app.intent('millionare',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} millionare" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.millionare)) {
+            response.say("Launching " + strings.millionare);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.millionare, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.millionare + strings.txt_notenabled);
+        }
+    });
+
+app.intent('France24',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} France 24" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.france24)) {
+            response.say("Launching " + strings.france24);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.france24, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.france24 + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('aljazera',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} aljazera" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.aljazera)) {
+            response.say("Launching " + strings.aljazera);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.aljazera, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.aljazera + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('weathergripe',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} weathergripe" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.weathergripe)) {
+            response.say("Launching " + strings.weathergripe);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.weathergripe, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.weathergripe + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('bbcsport',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} b.b.c sport" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.bbcsport)) {
+            response.say("Launching " + strings.bbcsport);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.bbcsport, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.bbcsport + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('eurosport',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} eurosport" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.eurosport)) {
+            response.say("Launching " + strings.eurosport);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.eurosport, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.eurosport + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('curzon',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} curzon" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.curzon)) {
+            response.say("Launching " + strings.curzon);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.curzon, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.curzon + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('worldbox',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} world box" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.worldbox)) {
+            response.say("Launching " + strings.worldbox);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.worldbox, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.worldbox + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('mynickjr',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} my nick junior" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.mynickjr)) {
+            response.say("Launching " + strings.mynickjr);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.mynickjr, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.mynickjr + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('playgames',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} play games" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.playgames)) {
+            response.say("Launching " + strings.playgames);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.playgames, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.playgames + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('slots',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} slots" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.slots)) {
+            response.say("Launching " + strings.slots);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.slots, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.slots + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('stringemin',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} string em in" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.stringemin)) {
+            response.say("Launching " + strings.stringemin);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.stringemin, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.stringemin + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('puzzlerfamily',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} puzzler family" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.puzzlerfamily)) {
+            response.say("Launching " + strings.puzzlerfamily);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.puzzlerfamily, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.puzzlerfamily + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+app.intent('texasholdem',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} texas hold em" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.texasholdem)) {
+            response.say("Launching " + strings.texasholdem);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.texasholdem, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.texasholdem + strings.txt_notenabled);
+        }
+    });
+
+
+app.intent('charlieandlola',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} charlieandlola" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.charlieandlola)) {
+            response.say("Launching " + strings.charlieandlola);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.charlieandlola, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.charlieandlola + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+
+
+app.intent('scoobygame',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} scoobygame" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.scoobygame)) {
+            response.say("Launching " + strings.scoobygame);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.scoobygame, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.scoobygame + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+
+
+app.intent('quizgame',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} quizgame" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.quizgame)) {
+            response.say("Launching " + strings.quizgame);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.quizgame, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.quizgame + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+
+
+app.intent('pancakepanic',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} pancakepanic" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.pancakepanic)) {
+            response.say("Launching " + strings.pancakepanic);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.pancakepanic, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.pancakepanic + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+
+
+app.intent('morefromcn',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} morefromcn" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.morefromcn)) {
+            response.say("Launching " + strings.morefromcn);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.morefromcn, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.morefromcn + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+
+
+app.intent('getfittoday',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} get fit today" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.getfittoday)) {
+            response.say("Launching " + strings.getfittoday);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.getfittoday, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.getfittoday + strings.txt_notenabled);
+        }
+    });
+
+
+
+
+
+
+app.intent('bodyinbalance',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} body in balance" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.bodyinbalance)) {
+            response.say("Launching " + strings.bodyinbalance);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.bodyinbalance, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.bodyinbalance + strings.txt_notenabled);
+        }
+    });
+
+###################################
+
+app.intent('pandora',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} pandora" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.pandora)) {
+            response.say("Launching " + strings.pandora);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.pandora, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.pandora + strings.txt_notenabled);
+        }
+    });
+
+
 app.intent('MLBTV',
     {
         "slots":{},

@@ -1,7 +1,6 @@
 {
 
   "genres": "all, entertainment, family, kidz, lifestyle, locals, movies, music, news, religion, shopping, spanish, sports",
-  
   "netflix": "Netflix",
   "amazon": "Amazon Video",
   "hbogo": "HBO Go",
@@ -28,7 +27,6 @@
   "baeble": "Baeble Music Channel",
   "iheartradio": "I Heart Radio",
   "pandora": "Pandora",
-
   "txt_welcome": "Welcome to Tivo Control. ,",
   "txt_launch": "You can say things like Alexa, tell Tivo to pause, or Alexa, tell Tivo to launch Plex. ,",
   "txt_card": "I've added a card to your Alexa app with more help and detailed examples.",
@@ -55,7 +53,6 @@
   "txt_listtoolong": "Your channel list is too long to list. Try listing channels by genre instead",
   "txt_genrecard": "Here's a list of genres you can use to filter your channel list.\n\n",
   "txt_genrefooter": "\n\nYou can customize this list by editing the genres string in constants.json.",
-
   "txt_nomacros": "Sorry, user-defined macros have not been enabled in your config.json file.",
   "txt_macronotfound": "Sorry, I couldn't find a macro named ",
   "txt_macronotfound2": " in your macros configuration file.",
@@ -68,7 +65,7 @@
   "aljazera":"Al Jazera",
   "weathergripe":"Weather Gripe",
   "bbcsport":"BBC Sport",
-  "eurosport:"Eurosport",
+  "eurosport":"Eurosport",
   "curzon":"Curzon",
   "worldbox":"worldbox",
   "mynickjr":"My Nick Jr",
